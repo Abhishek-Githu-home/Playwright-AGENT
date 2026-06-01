@@ -1,0 +1,1 @@
+problem_user add-to-cart broken images count: 0
