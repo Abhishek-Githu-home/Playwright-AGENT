@@ -1,21 +1,20 @@
-# Playwright-Agent
+# 🎭 Playwright-Agent & MCP
 
-A comprehensive automation testing framework built with Playwright and BDD (Behavior-Driven Development) approach using Gherkin syntax.
+A comprehensive automation testing framework built with Playwright modal Context Protocol Agents (Agent Planner, Agent Generator and Healer) using advanced LLM techniques.
 
 ## Overview
-
-Playwright-Agent is a test automation solution that combines the power of **Playwright** (89.3% JavaScript) with **Gherkin** feature files (10.7%) for readable, maintainable end-to-end testing.
+Playwright-Agent is a test automation solution that combines the power of **LLM** ,**Playwright** (89.3% JavaScript) with **Gherkin** feature files (10.7%) for readable, maintainable end-to-end testing.
 
 ## Language Composition
 
-- **JavaScript**: 89.3% - Core automation logic and test implementation
-- **Gherkin**: 10.7% - Human-readable feature files for BDD scenarios
+- **JavaScript**: 89.3% - Core automation logic and test implementation.
+- **Gherkin**: 10.7% - Human-readable feature files for BDD scenarios.
 
 ## Features
 
-- 🎭 **Playwright Integration** - Modern browser automation with support for Chromium, Firefox, and WebKit
+- 🎭 **Playwright AGENT & MCP** - Modern browser automation with LLM assistance of Agent Planner, Agent Generator and Agent Healer
 - 📋 **BDD Framework** - Gherkin feature files for clear test scenarios
-- 🤖 **Agent-Based Architecture** - Intelligent test execution and reporting
+- 🤖 **LLM-Based Architecture** - Intelligent LLM interaction for test execution and reporting
 - 📊 **Test Reporting** - Detailed execution reports and logs
 - ⚡ **Fast Execution** - Parallel test execution capabilities
 
@@ -49,7 +48,7 @@ npm test
 npm test -- features/yourfeature.feature
 
 # Run with specific browser
-npm test -- --browser=firefox
+npm test -- --browser=chrome
 ```
 
 ## Project Structure
@@ -67,10 +66,7 @@ Playwright-AGENT/
 ## Repository Information
 
 - **Owner**: [@Abhishek-Githu-home](https://github.com/Abhishek-Githu-home)
-- **Visibility**: Public
 - **Default Branch**: Main
-- **Size**: 35 KB
-- **License**: Not specified
 - **Repository URL**: https://github.com/Abhishek-Githu-home/Playwright-AGENT
 
 ## Features Enabled
@@ -95,11 +91,3 @@ Contributions are welcome! Please follow these steps:
 ## Support
 
 For issues, questions, or suggestions, please use the [Issues](https://github.com/Abhishek-Githu-home/Playwright-AGENT/issues) section of this repository.
-
-## License
-
-This project is currently unlicensed. Please see the repository for more details.
-
----
-
-**Last Updated**: June 1, 2026
