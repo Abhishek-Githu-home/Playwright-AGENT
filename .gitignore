@@ -3,6 +3,11 @@
 node_modules/
 /test-results/
 /playwright-report/
+/playwright-report-amazon/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Allure generated reports (allure-results is kept as the latest run's raw data)
+/allure-report/
+/allure-report-single-file/

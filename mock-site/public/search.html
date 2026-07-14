@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Search Results - Demo Amazon Store</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="index.html" id="nav-logo">amazon<span style="color:#febd69">.demo</span></a>
+  <div class="search-bar">
+    <input id="twotabsearchtextbox" type="text" placeholder="Search products..." aria-label="Search" />
+    <button id="nav-search-submit-button" aria-label="Go">Search</button>
+  </div>
+  <a href="cart.html" id="nav-cart">Cart (<span id="nav-cart-count">0</span>)</a>
+</header>
+<main>
+  <h1 id="search-results-heading">Results</h1>
+  <div class="product-grid" id="product-grid"></div>
+  <p id="no-results-message" style="display:none">No results found.</p>
+</main>
+<script src="products.js"></script>
+<script src="app.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const query = (params.get('q') || '').trim().toLowerCase();
+  document.getElementById('search-results-heading').textContent = query
+    ? `Search results for "${query}"`
+    : 'All products';
+
+  const results = query
+    ? window.PRODUCTS.filter((p) => p.title.toLowerCase().includes(query) || p.category.toLowerCase().includes(query))
+    : window.PRODUCTS;
+
+  const grid = document.getElementById('product-grid');
+  if (results.length === 0) {
+    document.getElementById('no-results-message').style.display = 'block';
+  }
+  results.forEach((p) => {
+    const a = document.createElement('a');
+    a.className = 'product-card';
+    a.href = `product.html?id=${p.id}`;
+    a.dataset.productId = p.id;
+    a.innerHTML = `
+      <img src="${p.image}" alt="${p.title}" />
+      <div class="title">${p.title}</div>
+      <div class="price">&#8377;${p.price}<span class="mrp">&#8377;${p.mrp}</span></div>
+    `;
+    grid.appendChild(a);
+  });
+</script>
+</body>
+</html>
