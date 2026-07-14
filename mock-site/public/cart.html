@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Cart - Demo Amazon Store</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="index.html" id="nav-logo">amazon<span style="color:#febd69">.demo</span></a>
+  <div class="search-bar">
+    <input id="twotabsearchtextbox" type="text" placeholder="Search products..." aria-label="Search" />
+    <button id="nav-search-submit-button" aria-label="Go">Search</button>
+  </div>
+  <a href="cart.html" id="nav-cart">Cart (<span id="nav-cart-count">0</span>)</a>
+</header>
+<main>
+  <h1>Shopping Cart</h1>
+  <table class="cart-table" id="cart-table">
+    <thead><tr><th>Product</th><th>Price</th><th>Qty</th><th>Subtotal</th><th></th></tr></thead>
+    <tbody id="cart-items-body"></tbody>
+  </table>
+  <p id="empty-cart-message" style="display:none">Your cart is empty.</p>
+  <div class="cart-summary" id="cart-summary" style="display:none">
+    <p>Subtotal (<span id="cart-total-qty">0</span> items): <strong id="cart-subtotal">&#8377;0</strong></p>
+    <a href="checkout.html" id="proceed-to-checkout">Proceed to Buy</a>
+  </div>
+</main>
+<script src="products.js"></script>
+<script src="app.js"></script>
+<script>
+  function render() {
+    const cart = window.DemoCart.readCart();
+    const body = document.getElementById('cart-items-body');
+    body.innerHTML = '';
+    let subtotal = 0;
+    let totalQty = 0;
+
+    cart.forEach((item) => {
+      const product = window.PRODUCTS.find((p) => p.id === item.id);
+      if (!product) return;
+      const lineTotal = product.price * item.qty;
+      subtotal += lineTotal;
+      totalQty += item.qty;
+      const tr = document.createElement('tr');
+      tr.className = 'cart-item-row';
+      tr.dataset.productId = product.id;
+      tr.innerHTML = `
+        <td>${product.title}</td>
+        <td>&#8377;${product.price}</td>
+        <td>${item.qty}</td>
+        <td>&#8377;${lineTotal}</td>
+        <td><button class="remove-link" data-id="${product.id}">Delete</button></td>
+      `;
+      body.appendChild(tr);
+    });
+
+    document.getElementById('empty-cart-message').style.display = cart.length === 0 ? 'block' : 'none';
+    document.getElementById('cart-summary').style.display = cart.length === 0 ? 'none' : 'block';
+    document.getElementById('cart-subtotal').textContent = `₹${subtotal}`;
+    document.getElementById('cart-total-qty').textContent = String(totalQty);
+
+    document.querySelectorAll('.remove-link').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        window.DemoCart.removeFromCart(btn.dataset.id);
+        render();
+      });
+    });
+  }
+
+  render();
+</script>
+</body>
+</html>

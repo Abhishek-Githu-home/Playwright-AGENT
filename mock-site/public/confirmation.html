@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Order Confirmed - Demo Amazon Store</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="index.html" id="nav-logo">amazon<span style="color:#febd69">.demo</span></a>
+  <div class="search-bar">
+    <input id="twotabsearchtextbox" type="text" placeholder="Search products..." aria-label="Search" />
+    <button id="nav-search-submit-button" aria-label="Go">Search</button>
+  </div>
+  <a href="cart.html" id="nav-cart">Cart (<span id="nav-cart-count">0</span>)</a>
+</header>
+<main>
+  <div class="confirmation-box">
+    <h1 id="order-success-message">Order Placed Successfully!</h1>
+    <p>Thank you for shopping with us. Your order ID is <span id="order-id"></span>.</p>
+    <a href="index.html">Continue shopping</a>
+  </div>
+</main>
+<script src="products.js"></script>
+<script src="app.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  document.getElementById('order-id').textContent = params.get('orderId') || sessionStorage.getItem('last_order_id') || '';
+</script>
+</body>
+</html>

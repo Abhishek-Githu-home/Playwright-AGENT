@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Product - Demo Amazon Store</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="index.html" id="nav-logo">amazon<span style="color:#febd69">.demo</span></a>
+  <div class="search-bar">
+    <input id="twotabsearchtextbox" type="text" placeholder="Search products..." aria-label="Search" />
+    <button id="nav-search-submit-button" aria-label="Go">Search</button>
+  </div>
+  <a href="cart.html" id="nav-cart">Cart (<span id="nav-cart-count">0</span>)</a>
+</header>
+<main>
+  <div class="product-detail" id="product-detail"></div>
+</main>
+<script src="products.js"></script>
+<script src="app.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const product = window.PRODUCTS.find((p) => p.id === id);
+  const container = document.getElementById('product-detail');
+
+  if (!product) {
+    container.innerHTML = '<p id="product-not-found">Product not found.</p>';
+  } else {
+    container.innerHTML = `
+      <img src="${product.image}" alt="${product.title}" />
+      <div class="buybox">
+        <h1 id="product-title">${product.title}</h1>
+        <p id="product-rating">${product.rating} &#9733; (${product.reviews.toLocaleString()} ratings)</p>
+        <p id="product-price" style="font-size:24px;font-weight:bold;">&#8377;${product.price}
+          <span style="font-size:14px;text-decoration:line-through;color:#565959;font-weight:normal;">&#8377;${product.mrp}</span>
+        </p>
+        <p style="color:#007600;">In stock</p>
+        <label for="quantity-select">Qty:</label>
+        <select id="quantity-select">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <div>
+          <button id="add-to-cart-button">Add to Cart</button>
+          <button id="buy-now-button">Buy Now</button>
+        </div>
+        <div class="added-banner" id="added-to-cart-banner">Added to cart.</div>
+      </div>
+    `;
+
+    document.getElementById('add-to-cart-button').addEventListener('click', () => {
+      const qty = Number(document.getElementById('quantity-select').value);
+      window.DemoCart.addToCart(product.id, qty);
+      const banner = document.getElementById('added-to-cart-banner');
+      banner.textContent = `Added ${qty} x "${product.title}" to cart.`;
+      banner.classList.add('visible');
+    });
+
+    document.getElementById('buy-now-button').addEventListener('click', () => {
+      const qty = Number(document.getElementById('quantity-select').value);
+      window.DemoCart.addToCart(product.id, qty);
+      window.location.href = 'checkout.html';
+    });
+  }
+</script>
+</body>
+</html>

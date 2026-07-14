@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Checkout - Demo Amazon Store</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="index.html" id="nav-logo">amazon<span style="color:#febd69">.demo</span></a>
+  <div class="search-bar">
+    <input id="twotabsearchtextbox" type="text" placeholder="Search products..." aria-label="Search" />
+    <button id="nav-search-submit-button" aria-label="Go">Search</button>
+  </div>
+  <a href="cart.html" id="nav-cart">Cart (<span id="nav-cart-count">0</span>)</a>
+</header>
+<main>
+  <h1>Checkout</h1>
+  <form id="checkout-form" novalidate>
+    <label for="full-name">Full name</label>
+    <input id="full-name" name="fullName" type="text" required />
+    <div class="field-error" id="full-name-error">Full name is required.</div>
+
+    <label for="address">Address</label>
+    <input id="address" name="address" type="text" required />
+    <div class="field-error" id="address-error">Address is required.</div>
+
+    <label for="city">City</label>
+    <input id="city" name="city" type="text" required />
+    <div class="field-error" id="city-error">City is required.</div>
+
+    <label for="pincode">Pincode</label>
+    <input id="pincode" name="pincode" type="text" pattern="[0-9]{6}" required />
+    <div class="field-error" id="pincode-error">Enter a valid 6-digit pincode.</div>
+
+    <label for="phone">Phone number</label>
+    <input id="phone" name="phone" type="text" pattern="[0-9]{10}" required />
+    <div class="field-error" id="phone-error">Enter a valid 10-digit phone number.</div>
+
+    <button type="submit" id="placeYourOrder1">Place Your Order</button>
+  </form>
+</main>
+<script src="products.js"></script>
+<script src="app.js"></script>
+<script>
+  const cart = window.DemoCart.readCart();
+  if (cart.length === 0) {
+    window.location.href = 'cart.html';
+  }
+
+  const form = document.getElementById('checkout-form');
+  const fields = ['full-name', 'address', 'city', 'pincode', 'phone'];
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let valid = true;
+
+    fields.forEach((id) => {
+      const input = document.getElementById(id);
+      const error = document.getElementById(`${id}-error`);
+      const ok = input.checkValidity() && input.value.trim() !== '';
+      error.classList.toggle('visible', !ok);
+      if (!ok) valid = false;
+    });
+
+    if (!valid) return;
+
+    const orderId = 'DEMO-' + Math.floor(100000 + Math.random() * 900000);
+    sessionStorage.setItem('last_order_id', orderId);
+    window.DemoCart.clearCart();
+    window.location.href = `confirmation.html?orderId=${orderId}`;
+  });
+</script>
+</body>
+</html>
